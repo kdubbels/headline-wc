@@ -1,0 +1,34 @@
+<script src="./javascripts/socket.io.js"></script>
+<script>
+  var socket = io.connect('http://localhost:4000');
+  socket.on('headline', function (data) {
+    console.log(data);
+
+    var latest = document.body.querySelector('#latest');
+    latest.textContent = data;
+
+
+    socket.emit('my other event', { my: 'data' });
+  });
+ /*
+  socket.on('news', function (data) {
+    console.warn(data);
+    socket.emit('my other event', { my: 'data' });
+  });
+*/
+</script>
+
+
+<br>
+<br>
+<hr>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+
+<div class="container">
+
+<div id="latest"></div>
+
+</div>
