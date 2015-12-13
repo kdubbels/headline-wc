@@ -40,24 +40,30 @@ function countWords(array) {
 	return zipped;
 }
 
-
+var obj = {};
 
 module.exports.scrapeHeadlines = function(req, res) {
-	request({
-	  uri: "http://www.nytimes.com",
-	  method: "GET",
-	  timeout: 10000,
-	  followRedirect: true,
-	  maxRedirects: 10
-	}, function(error, response, html) {
-		    if (!error && response.statusCode == 200) {
-		    	var array = formatText(html);
-		    	// console.log(array);
-		    	var wc = countWords(array);
-		    	// res.send(wc);
-		    	console.log(wc);
-		    }
-	});
+	
+	var callback = function(){
+		var makeRequest = request({
+		  uri: "http://www.nytimes.com",
+		  method: "GET",
+		  timeout: 10000,
+		  followRedirect: true,
+		  maxRedirects: 10
+		}, function(error, response, html) {
+			    if (!error && response.statusCode == 200) {
+			    	var array = formatText(html);
+			    	var wc = countWords(array);
+			    	obj.data = wc;
+			    	return obj;
+			    }
+		});
+	}
+
+callback();
+return obj;
+
 };
 		/* use body */
 

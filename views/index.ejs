@@ -2,10 +2,10 @@
 <script>
   var socket = io.connect('http://localhost:4000');
   socket.on('headline', function (data) {
-    console.log(data);
+    console.log(data.data);
 
     var latest = document.body.querySelector('#latest');
-    latest.textContent = data;
+    latest.textContent = JSON.stringify(data.data);
 
 
     socket.emit('my other event', { my: 'data' });
@@ -28,7 +28,7 @@
 <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
 
 <div class="container">
-
+<pre>
 <div id="latest"></div>
-
+</pre>
 </div>
